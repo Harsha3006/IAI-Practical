@@ -1,32 +1,35 @@
-tree = {
+graph = {
     'A': ['B', 'C', 'D'],
+    'B': [],
     'C': ['E', 'F'],
+    'D': ['H'],
+    'E': [],
     'F': ['I', 'G'],
-    'D': ['H']
+    'G': [],
+    'H': [],
+    'I': []
 }
 
-current = 'A'
+start = 'A'
 goal = 'G'
 
-path = []
+visited = []
 
 def dfs(node):
-    path.append(node)
+    if node in visited:
+        return
+
+    print(node, end=" ")
+    visited.append(node)
 
     if node == goal:
+        print("\nGoal Found!")
         return True
 
-    for child in tree.get(node, []):
+    for child in graph[node]:
         if dfs(child):
             return True
 
-    path.pop()
     return False
 
-dfs(current)
-
-print("DFS Path:", end=" ")
-for node in path:
-    print(node, end=" ")
-
-print("\nGoal Reached!")
+dfs(start)
